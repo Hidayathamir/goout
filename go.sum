@@ -1,5 +1,5 @@
-github.com/Hidayathamir/gocheck v0.0.0-20240426062313-33d3b3599faf h1:SFPmHPSMdJKofxk6pIYfSVAnvgG7DaKphXQvVKE5PJ4=
-github.com/Hidayathamir/gocheck v0.0.0-20240426062313-33d3b3599faf/go.mod h1:yUJiAN52il99DUpavbiLh7GOHQ0TVgDcVwVEFfy7ZDA=
+github.com/Hidayathamir/gocheck v0.0.0-20240426064144-2c346b9d5af2 h1:dTj8EL+3cuavl34Wh5eR8y4cv6J9tarvWbt1zB+rj4w=
+github.com/Hidayathamir/gocheck v0.0.0-20240426064144-2c346b9d5af2/go.mod h1:yUJiAN52il99DUpavbiLh7GOHQ0TVgDcVwVEFfy7ZDA=
 github.com/Hidayathamir/protobuf v0.0.0-20240425171123-5cbf62e1a386 h1:S/4m2dOWNzG993eVhQjGefc3ZOhw1pdfccK8nNHdxNA=
 github.com/Hidayathamir/protobuf v0.0.0-20240425171123-5cbf62e1a386/go.mod h1:K0TxegKAwgNrrex0bLyfAb9PL9zU8k15YRnzxSZINr8=
 github.com/Hidayathamir/txmanager v0.0.1 h1:L90/yTqhiYA/Moo1it/4K17IgVXePnqxrFKIhoHSuxA=
