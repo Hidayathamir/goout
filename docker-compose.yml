@@ -1,0 +1,47 @@
+networks:
+  goout:
+    driver: bridge
+
+services:
+  goout-app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: goout-app-container
+    depends_on:
+      - goout-db-postgres
+      - goout-cache-redis
+    environment:
+      APP_ENVIRONMENT: prod
+      HTTP_HOST: 0.0.0.0
+      GRPC_HOST: 0.0.0.0
+      POSTGRES_HOST: goout-db-postgres-container # use docker network goout postgres host
+      POSTGRES_PORT: 5432                        # use docker network goout postgres port
+      REDIS_HOST: goout-cache-redis-container    # use docker network goout redis host
+      REDIS_PORT: 6379                           # use docker network goout redis port
+    image: goout-app
+    networks:
+      - goout
+    ports:
+      - '10011:10011' # expose container http server to host on 10011
+      - '11011:11011' # expose container grpc server to host on 11011
+
+  goout-db-postgres:
+    container_name: goout-db-postgres-container
+    environment:
+      POSTGRES_DB: playground
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+    image: 'postgres:16.2'
+    networks:
+      - goout
+    ports:
+      - '5011:5432' # expose container postgres to host on 5011
+
+  goout-cache-redis:
+    image: 'redis:7.2.4'
+    container_name: goout-cache-redis-container
+    networks:
+      - goout
+    ports:
+      - '6011:6379' # expose container redis to host on 6011

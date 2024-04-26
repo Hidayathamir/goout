@@ -1,0 +1,2 @@
+// Package goouterror -.
+package goouterror
