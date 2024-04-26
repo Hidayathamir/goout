@@ -13,11 +13,13 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// ErajolBikeClient -.
 type ErajolBikeClient struct {
 	Base           string
 	URLOrderDriver string
 }
 
+// NewErajolBikeClient -.
 func NewErajolBikeClient(base string) *ErajolBikeClient {
 	return &ErajolBikeClient{
 		Base:           base,
@@ -33,6 +35,7 @@ func (e *ErajolBikeClient) getURLOrderDriver() string {
 
 ////////////////////////////////////////
 
+// OrderDriver -.
 func (e *ErajolBikeClient) OrderDriver(ctx context.Context, req ReqErajolBikeOrderDriver) (ResDataErajolBikeOrderDriver, error) {
 	fail := func(err error) (ResDataErajolBikeOrderDriver, error) {
 		return ResDataErajolBikeOrderDriver{}, trace.Wrap(err, trace.WithSkip(1))

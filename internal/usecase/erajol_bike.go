@@ -13,10 +13,12 @@ import (
 	"github.com/Hidayathamir/txmanager"
 )
 
+// IErajolBike -.
 type IErajolBike interface {
 	OrderDriver(ctx context.Context, req dto.ReqOrderDriver) (dto.ResOrderDriver, error)
 }
 
+// ErajolBike -.
 type ErajolBike struct {
 	cfg                            config.Config
 	txManager                      txmanager.ITransactionManager
@@ -26,6 +28,7 @@ type ErajolBike struct {
 
 var _ IErajolBike = &ErajolBike{}
 
+// NewErajolBike -.
 func NewErajolBike(cfg config.Config, txManager txmanager.ITransactionManager, repoErajolBike repo.IErajolBike, gocheckgrpcDigitalWalletClient gocheckgrpc.DigitalWalletClient) *ErajolBike {
 	return &ErajolBike{
 		cfg:                            cfg,

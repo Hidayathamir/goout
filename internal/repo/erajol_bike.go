@@ -6,8 +6,10 @@ import (
 	"github.com/Hidayathamir/goout/internal/repo/db"
 )
 
+// IErajolBike -.
 type IErajolBike interface{}
 
+// ErajolBike -.
 type ErajolBike struct {
 	cfg             config.Config
 	pg              *db.Postgres
@@ -16,6 +18,7 @@ type ErajolBike struct {
 
 var _ IErajolBike = &ErajolBike{}
 
+// NewErajolBike -.
 func NewErajolBike(cfg config.Config, pg *db.Postgres, cacheErajolBike cache.IErajolBike) *ErajolBike {
 	return &ErajolBike{
 		cfg:             cfg,

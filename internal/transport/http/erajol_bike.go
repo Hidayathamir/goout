@@ -11,11 +11,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ErajolBike -.
 type ErajolBike struct {
 	cfg               config.Config
 	usecaseErajolBike usecase.IErajolBike
 }
 
+// NewErajolBike -.
 func NewErajolBike(cfg config.Config, usecaseErajolBike usecase.IErajolBike) *ErajolBike {
 	return &ErajolBike{
 		cfg:               cfg,
@@ -23,6 +25,7 @@ func NewErajolBike(cfg config.Config, usecaseErajolBike usecase.IErajolBike) *Er
 	}
 }
 
+// OrderDriver -.
 func (e *ErajolBike) OrderDriver(c *gin.Context) {
 	req := goouthttp.ReqErajolBikeOrderDriver{}
 	err := c.ShouldBindJSON(&req)

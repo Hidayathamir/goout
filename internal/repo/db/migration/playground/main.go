@@ -5,7 +5,6 @@ import (
 	"gorm.io/gorm"
 )
 
-//nolint:gomnd
 func main() {
-	gormPlayground(func(pg *gorm.DB) {})
+	gormPlayground(func(_ *gorm.DB) {})
 }

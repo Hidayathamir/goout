@@ -10,6 +10,7 @@ import (
 	gooutgrpc "github.com/Hidayathamir/protobuf/goout"
 )
 
+// ErajolBike -.
 type ErajolBike struct {
 	gooutgrpc.UnimplementedErajolBikeServer
 
@@ -19,6 +20,7 @@ type ErajolBike struct {
 
 var _ gooutgrpc.ErajolBikeServer = &ErajolBike{}
 
+// NewErajolBike -.
 func NewErajolBike(cfg config.Config, usecaseErajolBike usecase.IErajolBike) *ErajolBike {
 	return &ErajolBike{
 		cfg:               cfg,
