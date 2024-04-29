@@ -11,7 +11,7 @@ type IErajolBike interface{}
 
 // ErajolBike -.
 type ErajolBike struct {
-	cfg             config.Config
+	cfg             *config.Config
 	pg              *db.Postgres
 	cacheErajolBike cache.IErajolBike
 }
@@ -19,7 +19,7 @@ type ErajolBike struct {
 var _ IErajolBike = &ErajolBike{}
 
 // NewErajolBike -.
-func NewErajolBike(cfg config.Config, pg *db.Postgres, cacheErajolBike cache.IErajolBike) *ErajolBike {
+func NewErajolBike(cfg *config.Config, pg *db.Postgres, cacheErajolBike cache.IErajolBike) *ErajolBike {
 	return &ErajolBike{
 		cfg:             cfg,
 		pg:              pg,

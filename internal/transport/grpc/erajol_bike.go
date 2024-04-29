@@ -14,14 +14,14 @@ import (
 type ErajolBike struct {
 	gooutgrpc.UnimplementedErajolBikeServer
 
-	cfg               config.Config
+	cfg               *config.Config
 	usecaseErajolBike usecase.IErajolBike
 }
 
 var _ gooutgrpc.ErajolBikeServer = &ErajolBike{}
 
 // NewErajolBike -.
-func NewErajolBike(cfg config.Config, usecaseErajolBike usecase.IErajolBike) *ErajolBike {
+func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *ErajolBike {
 	return &ErajolBike{
 		cfg:               cfg,
 		usecaseErajolBike: usecaseErajolBike,

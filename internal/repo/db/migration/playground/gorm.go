@@ -1,6 +1,8 @@
 package main
 
 import (
+	"path/filepath"
+
 	"github.com/Hidayathamir/goout/internal/config"
 	"github.com/Hidayathamir/goout/internal/repo/db"
 	"github.com/Hidayathamir/goout/pkg/trace"
@@ -11,7 +13,7 @@ import (
 
 // gormPlayground print DDL of table.
 func gormPlayground(fn func(pg *gorm.DB)) {
-	cfg, err := config.Load("../../../../config.yml")
+	cfg, err := config.Load(filepath.Join("..", "..", "..", "..", "config.yml"))
 	fatalIfErr(err)
 
 	gormConfig := &gorm.Config{
@@ -19,7 +21,7 @@ func gormPlayground(fn func(pg *gorm.DB)) {
 		Logger: logger.Default.LogMode(logger.Info),
 	}
 
-	pg, err := db.NewPostgres(*cfg, db.WithGormConfig(gormConfig))
+	pg, err := db.NewPostgres(cfg, db.WithGormConfig(gormConfig))
 	fatalIfErr(err)
 
 	fn(pg.DB)

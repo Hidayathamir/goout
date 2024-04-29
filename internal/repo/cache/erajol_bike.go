@@ -7,14 +7,14 @@ type IErajolBike interface{}
 
 // ErajolBike -.
 type ErajolBike struct {
-	cfg   config.Config
+	cfg   *config.Config
 	redis *Redis
 }
 
 var _ IErajolBike = &ErajolBike{}
 
 // NewErajolBike -.
-func NewErajolBike(cfg config.Config, redis *Redis) *ErajolBike {
+func NewErajolBike(cfg *config.Config, redis *Redis) *ErajolBike {
 	return &ErajolBike{
 		cfg:   cfg,
 		redis: redis,

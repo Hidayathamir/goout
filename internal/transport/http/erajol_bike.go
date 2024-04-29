@@ -13,12 +13,12 @@ import (
 
 // ErajolBike -.
 type ErajolBike struct {
-	cfg               config.Config
+	cfg               *config.Config
 	usecaseErajolBike usecase.IErajolBike
 }
 
 // NewErajolBike -.
-func NewErajolBike(cfg config.Config, usecaseErajolBike usecase.IErajolBike) *ErajolBike {
+func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *ErajolBike {
 	return &ErajolBike{
 		cfg:               cfg,
 		usecaseErajolBike: usecaseErajolBike,

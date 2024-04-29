@@ -9,6 +9,7 @@ import (
 	"github.com/Hidayathamir/gocheck/pkg/gocheckgrpcmiddleware"
 	"github.com/Hidayathamir/goout/internal/config"
 	"github.com/Hidayathamir/goout/internal/dto"
+	"github.com/Hidayathamir/goout/internal/extapi"
 	"github.com/Hidayathamir/goout/internal/repo"
 	"github.com/Hidayathamir/goout/pkg/goouterror"
 	"github.com/Hidayathamir/goout/pkg/trace"
@@ -23,21 +24,21 @@ type IErajolBike interface {
 
 // ErajolBike -.
 type ErajolBike struct {
-	cfg                            config.Config
-	txManager                      txmanager.ITransactionManager
-	repoErajolBike                 repo.IErajolBike
-	gocheckgrpcDigitalWalletClient gocheckgrpc.DigitalWalletClient
+	cfg            *config.Config
+	txManager      txmanager.ITransactionManager
+	repoErajolBike repo.IErajolBike
+	extapiGocheck  extapi.IGocheck
 }
 
 var _ IErajolBike = &ErajolBike{}
 
 // NewErajolBike -.
-func NewErajolBike(cfg config.Config, txManager txmanager.ITransactionManager, repoErajolBike repo.IErajolBike, gocheckgrpcDigitalWalletClient gocheckgrpc.DigitalWalletClient) *ErajolBike {
+func NewErajolBike(cfg *config.Config, txManager txmanager.ITransactionManager, repoErajolBike repo.IErajolBike, extapiGocheck extapi.IGocheck) *ErajolBike {
 	return &ErajolBike{
-		cfg:                            cfg,
-		txManager:                      txManager,
-		repoErajolBike:                 repoErajolBike,
-		gocheckgrpcDigitalWalletClient: gocheckgrpcDigitalWalletClient,
+		cfg:            cfg,
+		txManager:      txManager,
+		repoErajolBike: repoErajolBike,
+		extapiGocheck:  extapiGocheck,
 	}
 }
 
@@ -66,7 +67,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqOrderDriver) (d
 		Amount:      int64(req.Price),
 	}
 
-	_, err = e.gocheckgrpcDigitalWalletClient.Transfer(ctx, reqTransfer)
+	_, err = e.extapiGocheck.Transfer(ctx, reqTransfer)
 	if err != nil {
 		return dto.ResOrderDriver{}, trace.Wrap(err)
 	}

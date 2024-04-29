@@ -11,10 +11,13 @@ import (
 	"time"
 
 	"github.com/Hidayathamir/goout/internal/config"
+	"github.com/Hidayathamir/goout/internal/extapi"
 	"github.com/Hidayathamir/goout/internal/repo/cache"
 	"github.com/Hidayathamir/goout/internal/repo/db"
 	"github.com/Hidayathamir/goout/internal/repo/db/migration/migrate"
+	"github.com/Hidayathamir/goout/internal/usecase"
 	"github.com/Hidayathamir/goout/pkg/trace"
+	gocheckgrpc "github.com/Hidayathamir/protobuf/gocheck"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
@@ -26,7 +29,7 @@ func Run() { //nolint:funlen
 	cfg, err := config.Load("./config.yml")
 	fatalIfErr(err)
 
-	pg, err := db.NewPostgres(*cfg)
+	pg, err := db.NewPostgres(cfg)
 	fatalIfErr(err)
 
 	if cfg.GetMigrationAuto() {
@@ -38,7 +41,7 @@ func Run() { //nolint:funlen
 		}
 	}
 
-	redis, err := cache.NewRedis(*cfg)
+	redis, err := cache.NewRedis(cfg)
 	fatalIfErr(err)
 
 	gocheckGRPCClientConn, err := grpc.Dial(net.JoinHostPort(cfg.GetExtAPIGocheckGRPCHost(), cfg.GetExtAPIGocheckGRPCPort()), grpc.WithTransportCredentials(insecure.NewCredentials()))
@@ -48,12 +51,18 @@ func Run() { //nolint:funlen
 		warnIfErr(err)
 	}()
 
+	gocheckgrpcDigitalWalletClient := gocheckgrpc.NewDigitalWalletClient(gocheckGRPCClientConn)
+
+	extapiGocheck := extapi.NewGocheck(cfg, gocheckgrpcDigitalWalletClient)
+
+	usecaseErajolBike := usecase.InitUsecaseErajolBike(cfg, pg, redis, extapiGocheck)
+
 	logrus.Info("initializing grpc server in a goroutine so that it won't block the graceful shutdown handling below")
 	var grpcServer *grpc.Server
 	go func() {
 		grpcServer = grpc.NewServer()
 
-		registerGRPCServer(*cfg, grpcServer, pg, redis, gocheckGRPCClientConn)
+		registerGRPCServer(cfg, grpcServer, usecaseErajolBike)
 
 		addr := net.JoinHostPort(cfg.GetGRPCHost(), cfg.GetGRPCPort())
 		lis, err := net.Listen("tcp", addr)
@@ -69,7 +78,7 @@ func Run() { //nolint:funlen
 	go func() {
 		ginEngine := gin.New()
 
-		registerHTTPRouter(*cfg, ginEngine, pg, redis, gocheckGRPCClientConn)
+		registerHTTPRouter(cfg, ginEngine, usecaseErajolBike)
 
 		addr := net.JoinHostPort(cfg.GetHTTPHost(), cfg.GetHTTPPort())
 		httpServer = &http.Server{ //nolint:gosec
