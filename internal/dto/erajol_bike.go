@@ -1,13 +1,13 @@
 package dto
 
-// ReqOrderDriver represents the request data structure for ordering a driver.
-type ReqOrderDriver struct {
+// ReqErajolBikeOrderDriver represents the request data structure for ordering a driver.
+type ReqErajolBikeOrderDriver struct {
 	CustomerID uint
 	DriverID   uint
 	Price      int
 }
 
-// ResOrderDriver represents the response data structure for ordering a driver.
-type ResOrderDriver struct {
+// ResErajolBikeOrderDriver represents the response data structure for ordering a driver.
+type ResErajolBikeOrderDriver struct {
 	OrderID uint
 }

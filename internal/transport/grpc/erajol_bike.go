@@ -30,7 +30,7 @@ func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *E
 
 // OrderDriver implements gooutgrpc.ErajolBikeServer.
 func (e *ErajolBike) OrderDriver(ctx context.Context, req *gooutgrpc.ReqErajolBikeOrderDriver) (*gooutgrpc.ResErajolBikeOrderDriver, error) {
-	reqOrderDriver := dto.ReqOrderDriver{
+	reqOrderDriver := dto.ReqErajolBikeOrderDriver{
 		CustomerID: uint(req.GetCustomerId()),
 		DriverID:   uint(req.GetDriverId()),
 		Price:      int(req.GetPrice()),

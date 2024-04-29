@@ -36,7 +36,7 @@ func (e *ErajolBike) OrderDriver(c *gin.Context) {
 		return
 	}
 
-	reqOrderDriver := dto.ReqOrderDriver{
+	reqOrderDriver := dto.ReqErajolBikeOrderDriver{
 		CustomerID: req.CustomerID,
 		DriverID:   req.DriverID,
 		Price:      req.Price,

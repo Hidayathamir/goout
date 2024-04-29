@@ -19,7 +19,7 @@ import (
 
 // IErajolBike defines the interface for the ErajolBike usecase.
 type IErajolBike interface {
-	OrderDriver(ctx context.Context, req dto.ReqOrderDriver) (dto.ResOrderDriver, error)
+	OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrderDriver) (dto.ResErajolBikeOrderDriver, error)
 }
 
 // ErajolBike represents the implementation of the ErajolBike usecase.
@@ -43,11 +43,11 @@ func NewErajolBike(cfg *config.Config, txManager txmanager.ITransactionManager, 
 }
 
 // OrderDriver implements IErajolBike.
-func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqOrderDriver) (dto.ResOrderDriver, error) {
+func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrderDriver) (dto.ResErajolBikeOrderDriver, error) {
 	err := e.validateReqOrderDriver(ctx, req)
 	if err != nil {
 		err := fmt.Errorf("%w: %w", goouterror.ErrInvalidRequest, err)
-		return dto.ResOrderDriver{}, trace.Wrap(err)
+		return dto.ResErajolBikeOrderDriver{}, trace.Wrap(err)
 	}
 
 	//
@@ -59,7 +59,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqOrderDriver) (d
 	auth := gocheckgrpcmiddleware.Authorization{UserID: req.CustomerID}
 	ctx, err = gocheckgrpcmiddleware.SetAuthToCtx(ctx, auth)
 	if err != nil {
-		return dto.ResOrderDriver{}, trace.Wrap(err)
+		return dto.ResErajolBikeOrderDriver{}, trace.Wrap(err)
 	}
 
 	reqTransfer := &gocheckgrpc.ReqDigitalWalletTransfer{
@@ -69,19 +69,19 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqOrderDriver) (d
 
 	_, err = e.extapiGocheck.Transfer(ctx, reqTransfer)
 	if err != nil {
-		return dto.ResOrderDriver{}, trace.Wrap(err)
+		return dto.ResErajolBikeOrderDriver{}, trace.Wrap(err)
 	}
 
 	//
 	// do something
 	//
 
-	res := dto.ResOrderDriver{OrderID: uint(time.Now().Unix())}
+	res := dto.ResErajolBikeOrderDriver{OrderID: uint(time.Now().Unix())}
 
 	return res, nil
 }
 
-func (e *ErajolBike) validateReqOrderDriver(_ context.Context, req dto.ReqOrderDriver) error {
+func (e *ErajolBike) validateReqOrderDriver(_ context.Context, req dto.ReqErajolBikeOrderDriver) error {
 	if req.CustomerID == 0 {
 		err := errors.New("customer id can not be empty")
 		return trace.Wrap(err)
