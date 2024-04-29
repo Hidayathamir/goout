@@ -8,7 +8,7 @@ import (
 	"github.com/Hidayathamir/goout/internal/repo/db"
 )
 
-// InitUsecaseErajolBike -.
+// InitUsecaseErajolBike initializes the ErajolBike usecase.
 func InitUsecaseErajolBike(cfg *config.Config, pg *db.Postgres, redis *cache.Redis, extapiGocheck extapi.IGocheck) *ErajolBike {
 	cacheErajolBike := cache.NewErajolBike(cfg, redis)
 	repoErajolBike := repo.NewErajolBike(cfg, pg, cacheErajolBike)

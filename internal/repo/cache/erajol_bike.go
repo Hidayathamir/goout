@@ -2,10 +2,10 @@ package cache
 
 import "github.com/Hidayathamir/goout/internal/config"
 
-// IErajolBike -.
+// IErajolBike defines the interface for the ErajolBike cache.
 type IErajolBike interface{}
 
-// ErajolBike -.
+// ErajolBike represents the implementation of the ErajolBike cache.
 type ErajolBike struct {
 	cfg   *config.Config
 	redis *Redis
@@ -13,7 +13,7 @@ type ErajolBike struct {
 
 var _ IErajolBike = &ErajolBike{}
 
-// NewErajolBike -.
+// NewErajolBike creates a new instance of the ErajolBike cache.
 func NewErajolBike(cfg *config.Config, redis *Redis) *ErajolBike {
 	return &ErajolBike{
 		cfg:   cfg,

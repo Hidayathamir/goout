@@ -11,12 +11,12 @@ import (
 
 //go:generate mockgen -source=gocheck.go -destination=mockextapi/gocheck.go -package=mockextapi
 
-// IGocheck -.
+// IGocheck defines the interface for interacting with the Gocheck external API.
 type IGocheck interface {
 	Transfer(ctx context.Context, in *gocheckgrpc.ReqDigitalWalletTransfer, opts ...grpc.CallOption) (*gocheckgrpc.ResDigitalWalletTransfer, error)
 }
 
-// Gocheck -.
+// Gocheck represents the implementation of the IGocheck interface.
 type Gocheck struct {
 	cfg                            *config.Config
 	gocheckgrpcDigitalWalletClient gocheckgrpc.DigitalWalletClient
@@ -24,7 +24,7 @@ type Gocheck struct {
 
 var _ IGocheck = &Gocheck{}
 
-// NewGocheck -.
+// NewGocheck creates a new instance of the Gocheck API client.
 func NewGocheck(cfg *config.Config, gocheckgrpcDigitalWalletClient gocheckgrpc.DigitalWalletClient) *Gocheck {
 	return &Gocheck{
 		cfg:                            cfg,

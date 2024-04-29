@@ -17,12 +17,12 @@ import (
 	"github.com/Hidayathamir/txmanager"
 )
 
-// IErajolBike -.
+// IErajolBike defines the interface for the ErajolBike usecase.
 type IErajolBike interface {
 	OrderDriver(ctx context.Context, req dto.ReqOrderDriver) (dto.ResOrderDriver, error)
 }
 
-// ErajolBike -.
+// ErajolBike represents the implementation of the ErajolBike usecase.
 type ErajolBike struct {
 	cfg            *config.Config
 	txManager      txmanager.ITransactionManager
@@ -32,7 +32,7 @@ type ErajolBike struct {
 
 var _ IErajolBike = &ErajolBike{}
 
-// NewErajolBike -.
+// NewErajolBike creates a new instance of the ErajolBike usecase.
 func NewErajolBike(cfg *config.Config, txManager txmanager.ITransactionManager, repoErajolBike repo.IErajolBike, extapiGocheck extapi.IGocheck) *ErajolBike {
 	return &ErajolBike{
 		cfg:            cfg,

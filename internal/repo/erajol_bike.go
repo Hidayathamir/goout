@@ -6,10 +6,10 @@ import (
 	"github.com/Hidayathamir/goout/internal/repo/db"
 )
 
-// IErajolBike -.
+// IErajolBike defines the interface for the ErajolBike repository.
 type IErajolBike interface{}
 
-// ErajolBike -.
+// ErajolBike represents the implementation of the ErajolBike repository.
 type ErajolBike struct {
 	cfg             *config.Config
 	pg              *db.Postgres
@@ -18,7 +18,7 @@ type ErajolBike struct {
 
 var _ IErajolBike = &ErajolBike{}
 
-// NewErajolBike -.
+// NewErajolBike creates a new instance of the ErajolBike repository.
 func NewErajolBike(cfg *config.Config, pg *db.Postgres, cacheErajolBike cache.IErajolBike) *ErajolBike {
 	return &ErajolBike{
 		cfg:             cfg,

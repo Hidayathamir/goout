@@ -11,7 +11,7 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-// gormPlayground print DDL of table.
+// gormPlayground is a function for initializing a GORM playground environment.
 func gormPlayground(fn func(pg *gorm.DB)) {
 	cfg, err := config.Load(filepath.Join("..", "..", "..", "..", "config.yml"))
 	fatalIfErr(err)

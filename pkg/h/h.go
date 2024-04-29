@@ -2,11 +2,11 @@
 package h
 
 const (
-	// ContentType -.
+	// ContentType represents the Content-Type header keyword.
 	ContentType = "Content-Type"
 )
 
 const (
-	// APPJSON -.
+	// APPJSON represents the value for the Content-Type header when sending JSON data.
 	APPJSON = "application/json"
 )

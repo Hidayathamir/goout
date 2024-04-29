@@ -13,13 +13,13 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// ErajolBikeClient -.
+// ErajolBikeClient represents a client for interacting with the ErajolBike API.
 type ErajolBikeClient struct {
 	Base           string
 	URLOrderDriver string
 }
 
-// NewErajolBikeClient -.
+// NewErajolBikeClient creates a new instance of ErajolBikeClient.
 func NewErajolBikeClient(base string) *ErajolBikeClient {
 	return &ErajolBikeClient{
 		Base:           base,
@@ -35,7 +35,7 @@ func (e *ErajolBikeClient) getURLOrderDriver() string {
 
 ////////////////////////////////////////
 
-// OrderDriver -.
+// OrderDriver sends http request to order a driver.
 func (e *ErajolBikeClient) OrderDriver(ctx context.Context, req ReqErajolBikeOrderDriver) (ResDataErajolBikeOrderDriver, error) {
 	fail := func(err error) (ResDataErajolBikeOrderDriver, error) {
 		return ResDataErajolBikeOrderDriver{}, trace.Wrap(err, trace.WithSkip(1))

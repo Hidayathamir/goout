@@ -11,13 +11,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// ErajolBike -.
+// ErajolBike represents the HTTP server for the ErajolBike service.
 type ErajolBike struct {
 	cfg               *config.Config
 	usecaseErajolBike usecase.IErajolBike
 }
 
-// NewErajolBike -.
+// NewErajolBike creates a new instance of ErajolBike HTTP server.
 func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *ErajolBike {
 	return &ErajolBike{
 		cfg:               cfg,
@@ -25,7 +25,7 @@ func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *E
 	}
 }
 
-// OrderDriver -.
+// OrderDriver is the handler function for the OrderDriver endpoint.
 func (e *ErajolBike) OrderDriver(c *gin.Context) {
 	req := goouthttp.ReqErajolBikeOrderDriver{}
 	err := c.ShouldBindJSON(&req)

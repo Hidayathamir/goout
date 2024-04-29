@@ -10,7 +10,7 @@ import (
 	gooutgrpc "github.com/Hidayathamir/protobuf/goout"
 )
 
-// ErajolBike -.
+// ErajolBike represents the gRPC server for the ErajolBike service.
 type ErajolBike struct {
 	gooutgrpc.UnimplementedErajolBikeServer
 
@@ -20,7 +20,7 @@ type ErajolBike struct {
 
 var _ gooutgrpc.ErajolBikeServer = &ErajolBike{}
 
-// NewErajolBike -.
+// NewErajolBike creates a new instance of ErajolBike gRPC server.
 func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *ErajolBike {
 	return &ErajolBike{
 		cfg:               cfg,
