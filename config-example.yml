@@ -33,3 +33,7 @@ ext_api:
   gocheck_grpc:
     host: "string"
     port: "string"
+
+gorm:
+  max_idle_conns: 1
+  max_open_conns: 1

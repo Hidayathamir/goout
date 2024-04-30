@@ -158,3 +158,13 @@ func (c *Config) GetExtAPIGocheckGRPCHost() string {
 func (c *Config) GetExtAPIGocheckGRPCPort() string {
 	return c.GetString("ext_api.gocheck_grpc.port")
 }
+
+// GetGormMaxIdleConns retrieves the gorm maximum idle connection pooling from the configuration.
+func (c *Config) GetGormMaxIdleConns() int {
+	return c.GetInt("gorm.max_idle_conns")
+}
+
+// GetGormMaxOpenConns retrieves the gorm maximum open connection pooling from the configuration.
+func (c *Config) GetGormMaxOpenConns() int {
+	return c.GetInt("gorm.max_open_conns")
+}
