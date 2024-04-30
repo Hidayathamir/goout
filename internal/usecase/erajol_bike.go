@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"time"
 
@@ -15,6 +14,7 @@ import (
 	"github.com/Hidayathamir/goout/pkg/trace"
 	gocheckgrpc "github.com/Hidayathamir/protobuf/gocheck"
 	"github.com/Hidayathamir/txmanager"
+	"github.com/go-playground/validator/v10"
 )
 
 // IErajolBike defines the interface for the ErajolBike usecase.
@@ -25,6 +25,7 @@ type IErajolBike interface {
 // ErajolBike represents the implementation of the ErajolBike usecase.
 type ErajolBike struct {
 	cfg            *config.Config
+	validator      *validator.Validate
 	txManager      txmanager.ITransactionManager
 	repoErajolBike repo.IErajolBike
 	extapiGocheck  extapi.IGocheck
@@ -34,8 +35,10 @@ var _ IErajolBike = &ErajolBike{}
 
 // NewErajolBike creates a new instance of the ErajolBike usecase.
 func NewErajolBike(cfg *config.Config, txManager txmanager.ITransactionManager, repoErajolBike repo.IErajolBike, extapiGocheck extapi.IGocheck) *ErajolBike {
+	validator := validator.New(validator.WithRequiredStructEnabled())
 	return &ErajolBike{
 		cfg:            cfg,
+		validator:      validator,
 		txManager:      txManager,
 		repoErajolBike: repoErajolBike,
 		extapiGocheck:  extapiGocheck,
@@ -82,20 +85,8 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 }
 
 func (e *ErajolBike) validateReqOrderDriver(_ context.Context, req dto.ReqErajolBikeOrderDriver) error {
-	if req.CustomerID == 0 {
-		err := errors.New("customer id can not be empty")
-		return trace.Wrap(err)
-	}
-	if req.DriverID == 0 {
-		err := errors.New("customer id can not be empty")
-		return trace.Wrap(err)
-	}
-	if req.Price == 0 {
-		err := errors.New("customer id can not be empty")
-		return trace.Wrap(err)
-	}
-	if req.CustomerID == req.DriverID {
-		err := errors.New("customer id can not be equal with driver id")
+	err := e.validator.Struct(req)
+	if err != nil {
 		return trace.Wrap(err)
 	}
 	return nil
