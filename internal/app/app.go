@@ -11,7 +11,6 @@ import (
 	"time"
 
 	"github.com/Hidayathamir/goout/internal/config"
-	"github.com/Hidayathamir/goout/internal/extapi"
 	"github.com/Hidayathamir/goout/internal/repo/cache"
 	"github.com/Hidayathamir/goout/internal/repo/db"
 	"github.com/Hidayathamir/goout/internal/repo/db/migration/migrate"
@@ -53,9 +52,7 @@ func Run() { //nolint:funlen
 
 	gocheckgrpcDigitalWalletClient := gocheckgrpc.NewDigitalWalletClient(gocheckGRPCClientConn)
 
-	extapiGocheck := extapi.NewGocheck(cfg, gocheckgrpcDigitalWalletClient)
-
-	usecaseErajolBike := usecase.InitUsecaseErajolBike(cfg, pg, redis, extapiGocheck)
+	usecaseErajolBike := usecase.InitUsecaseErajolBike(cfg, pg, redis, gocheckgrpcDigitalWalletClient)
 
 	logrus.Info("initializing grpc server in a goroutine so that it won't block the graceful shutdown handling below")
 	var grpcServer *grpc.Server
