@@ -5,11 +5,14 @@ import (
 	"context"
 	"net"
 
+	"github.com/Hidayathamir/gocheck/pkg/m"
 	"github.com/Hidayathamir/goout/pkg/trace"
 	gooutgrpc "github.com/Hidayathamir/protobuf/goout"
+	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/metadata"
 )
 
 //nolint:gomnd
@@ -26,6 +29,10 @@ func main() {
 
 	// prepare request
 	ctx := context.Background()
+
+	traceID := uuid.NewString()
+	ctx = metadata.NewOutgoingContext(ctx, metadata.Pairs(m.TraceID, traceID))
+
 	req := &gooutgrpc.ReqErajolBikeOrderDriver{
 		CustomerId: 1,
 		DriverId:   2,

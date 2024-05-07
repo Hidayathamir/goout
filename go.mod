@@ -3,12 +3,13 @@ module github.com/Hidayathamir/goout
 go 1.22.1
 
 require (
-	github.com/Hidayathamir/gocheck v0.0.0-20240507154833-42bb4e3a712a
+	github.com/Hidayathamir/gocheck v0.0.0-20240507213633-68b7d08f3467
 	github.com/Hidayathamir/protobuf v0.0.0-20240425171123-5cbf62e1a386
 	github.com/Hidayathamir/txmanager v0.0.1
 	github.com/alicebob/miniredis/v2 v2.32.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/validator/v10 v10.20.0
+	github.com/google/uuid v1.6.0
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/rubenv/sql-migrate v1.6.1
 	github.com/sirupsen/logrus v1.9.3
@@ -53,7 +54,6 @@ require (
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect

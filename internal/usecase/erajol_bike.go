@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -10,11 +11,14 @@ import (
 	"github.com/Hidayathamir/goout/internal/dto"
 	"github.com/Hidayathamir/goout/internal/extapi"
 	"github.com/Hidayathamir/goout/internal/repo"
+	"github.com/Hidayathamir/goout/pkg/ctxutil"
 	"github.com/Hidayathamir/goout/pkg/goouterror"
+	"github.com/Hidayathamir/goout/pkg/m"
 	"github.com/Hidayathamir/goout/pkg/trace"
 	gocheckgrpc "github.com/Hidayathamir/protobuf/gocheck"
 	"github.com/Hidayathamir/txmanager"
 	"github.com/go-playground/validator/v10"
+	"google.golang.org/grpc/metadata"
 )
 
 // IErajolBike defines the interface for the ErajolBike usecase.
@@ -61,10 +65,17 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 	// let say we want transfer money from customer to driver
 
 	auth := gocheckgrpcmiddleware.Authorization{UserID: req.CustomerID}
-	ctx, err = gocheckgrpcmiddleware.SetAuthToCtx(ctx, auth)
+	jsonByte, err := json.Marshal(auth)
 	if err != nil {
 		return dto.ResErajolBikeOrderDriver{}, trace.Wrap(err)
 	}
+
+	md := metadata.Pairs(
+		m.Authorization, string(jsonByte),
+		m.TraceID, ctxutil.GetTraceIDFromCtx(ctx),
+	)
+
+	ctx = metadata.NewOutgoingContext(ctx, md)
 
 	reqTransfer := &gocheckgrpc.ReqDigitalWalletTransfer{
 		RecipientId: uint64(req.DriverID),

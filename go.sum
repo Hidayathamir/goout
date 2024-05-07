@@ -4,8 +4,8 @@ github.com/AdaLogics/go-fuzz-headers v0.0.0-20230811130428-ced1acdcaa24 h1:bvDV9
 github.com/AdaLogics/go-fuzz-headers v0.0.0-20230811130428-ced1acdcaa24/go.mod h1:8o94RPi1/7XTJvwPpRSzSUedZrtlirdB3r9Z20bi2f8=
 github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 h1:UQHMgLO+TxOElx5B5HZ4hJQsoJ/PvUvKRhJHDQXO8P8=
 github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1/go.mod h1:xomTg63KZ2rFqZQzSB4Vz2SUXa1BpHTVz9L5PTmPC4E=
-github.com/Hidayathamir/gocheck v0.0.0-20240507154833-42bb4e3a712a h1:1+9/dcxQ/IOHL82WZorG3mkXbEa5YL0ksCb6u0K8G4M=
-github.com/Hidayathamir/gocheck v0.0.0-20240507154833-42bb4e3a712a/go.mod h1:bjDThq8WTVTYiuBCVLGOA8G+IdaxYL4YACSuHa6UMYg=
+github.com/Hidayathamir/gocheck v0.0.0-20240507213633-68b7d08f3467 h1:qnWsEdEhWU7QgyOjX8jpMkYdvRMqRmgwfHwntUG5WYE=
+github.com/Hidayathamir/gocheck v0.0.0-20240507213633-68b7d08f3467/go.mod h1:fKbP4fhixRBXiqkCGAWkplKdOvFUIXHJHUVurroJ+bg=
 github.com/Hidayathamir/protobuf v0.0.0-20240425171123-5cbf62e1a386 h1:S/4m2dOWNzG993eVhQjGefc3ZOhw1pdfccK8nNHdxNA=
 github.com/Hidayathamir/protobuf v0.0.0-20240425171123-5cbf62e1a386/go.mod h1:K0TxegKAwgNrrex0bLyfAb9PL9zU8k15YRnzxSZINr8=
 github.com/Hidayathamir/txmanager v0.0.1 h1:L90/yTqhiYA/Moo1it/4K17IgVXePnqxrFKIhoHSuxA=
