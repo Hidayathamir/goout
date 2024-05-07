@@ -19,6 +19,7 @@ import (
 
 // IErajolBike defines the interface for the ErajolBike usecase.
 type IErajolBike interface {
+	// OrderDriver orders driver and transfer money from customer to driver.
 	OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrderDriver) (dto.ResErajolBikeOrderDriver, error)
 }
 
