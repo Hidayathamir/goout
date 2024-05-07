@@ -15,8 +15,7 @@ import (
 	"github.com/Hidayathamir/goout/internal/repo/db/migration/migrate"
 	transportgrpc "github.com/Hidayathamir/goout/internal/transport/grpc"
 	transporthttp "github.com/Hidayathamir/goout/internal/transport/http"
-	"github.com/Hidayathamir/goout/internal/usecase"
-	"github.com/Hidayathamir/goout/internal/usecasemw/loggermw"
+	"github.com/Hidayathamir/goout/internal/usecase/injection"
 	"github.com/Hidayathamir/goout/pkg/trace"
 	gocheckgrpc "github.com/Hidayathamir/protobuf/gocheck"
 	"github.com/gin-gonic/gin"
@@ -56,12 +55,8 @@ func Run() { //nolint:funlen
 
 	gocheckgrpcDigitalWalletClient := gocheckgrpc.NewDigitalWalletClient(gocheckGRPCClientConn)
 
-	var usecaseErajolBike usecase.IErajolBike
-	usecaseErajolBike = usecase.InitUsecaseErajolBike(cfg, pg, redis, gocheckgrpcDigitalWalletClient)
-	usecaseErajolBike = loggermw.NewErajolBike(cfg, usecaseErajolBike)
-
+	usecaseErajolBike := injection.InitUsecaseErajolBike(cfg, pg, redis, gocheckgrpcDigitalWalletClient)
 	transportgrpcErajolBike := transportgrpc.NewErajolBike(cfg, usecaseErajolBike)
-
 	transporthttpErajolBike := transporthttp.NewErajolBike(cfg, usecaseErajolBike)
 
 	logrus.Info("initializing grpc server in a goroutine so that it won't block the graceful shutdown handling below")

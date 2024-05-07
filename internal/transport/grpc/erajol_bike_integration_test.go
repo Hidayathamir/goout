@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/Hidayathamir/goout/internal/extapi/mockextapi"
-	"github.com/Hidayathamir/goout/internal/usecase"
+	"github.com/Hidayathamir/goout/internal/usecase/injection"
 	gocheckgrpc "github.com/Hidayathamir/protobuf/gocheck"
 	gooutgrpc "github.com/Hidayathamir/protobuf/goout"
 	"github.com/stretchr/testify/assert"
@@ -23,7 +23,7 @@ func TestIntegrationErajolBikeOrderDriver(t *testing.T) {
 
 		mockExtapiGocheck := mockextapi.NewMockIGocheck(ctrl)
 
-		usecaseErajolBike := usecase.InitUsecaseErajolBike(cfg, pg, redis, mockExtapiGocheck)
+		usecaseErajolBike := injection.InitUsecaseErajolBike(cfg, pg, redis, mockExtapiGocheck)
 
 		tEraojolBike := NewErajolBike(cfg, usecaseErajolBike)
 
@@ -52,7 +52,7 @@ func TestIntegrationErajolBikeOrderDriver(t *testing.T) {
 
 		mockExtapiGocheck := mockextapi.NewMockIGocheck(ctrl)
 
-		usecaseErajolBike := usecase.InitUsecaseErajolBike(cfg, pg, redis, mockExtapiGocheck)
+		usecaseErajolBike := injection.InitUsecaseErajolBike(cfg, pg, redis, mockExtapiGocheck)
 
 		tEraojolBike := NewErajolBike(cfg, usecaseErajolBike)
 
