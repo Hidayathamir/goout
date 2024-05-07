@@ -3,7 +3,7 @@ module github.com/Hidayathamir/goout
 go 1.22.1
 
 require (
-	github.com/Hidayathamir/gocheck v0.0.0-20240506134458-c3915581df05
+	github.com/Hidayathamir/gocheck v0.0.0-20240507154833-42bb4e3a712a
 	github.com/Hidayathamir/protobuf v0.0.0-20240425171123-5cbf62e1a386
 	github.com/Hidayathamir/txmanager v0.0.1
 	github.com/alicebob/miniredis/v2 v2.32.1

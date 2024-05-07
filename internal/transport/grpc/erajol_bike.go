@@ -30,10 +30,10 @@ func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *E
 
 // OrderDriver implements gooutgrpc.ErajolBikeServer.
 func (e *ErajolBike) OrderDriver(ctx context.Context, req *gooutgrpc.ReqErajolBikeOrderDriver) (*gooutgrpc.ResErajolBikeOrderDriver, error) {
-	reqOrderDriver := dto.ReqErajolBikeOrderDriver{
-		CustomerID: uint(req.GetCustomerId()),
-		DriverID:   uint(req.GetDriverId()),
-		Price:      int(req.GetPrice()),
+	reqOrderDriver := dto.ReqErajolBikeOrderDriver{}
+	err := reqOrderDriver.LoadFromReqGRPC(ctx, req)
+	if err != nil {
+		return nil, trace.Wrap(err)
 	}
 
 	resOrderDriver, err := e.usecaseErajolBike.OrderDriver(ctx, reqOrderDriver)
@@ -41,9 +41,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req *gooutgrpc.ReqErajolBi
 		return nil, trace.Wrap(err)
 	}
 
-	res := &gooutgrpc.ResErajolBikeOrderDriver{
-		OrderId: uint64(resOrderDriver.OrderID),
-	}
+	res := resOrderDriver.ToResGRPC()
 
 	return res, nil
 }

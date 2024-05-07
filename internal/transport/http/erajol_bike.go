@@ -27,19 +27,13 @@ func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *E
 
 // OrderDriver is the handler function for the OrderDriver endpoint.
 func (e *ErajolBike) OrderDriver(c *gin.Context) {
-	req := goouthttp.ReqErajolBikeOrderDriver{}
-	err := c.ShouldBindJSON(&req)
+	reqOrderDriver := dto.ReqErajolBikeOrderDriver{}
+	err := reqOrderDriver.LoadFromReqHTTP(c)
 	if err != nil {
 		err := trace.Wrap(err)
 		res := goouthttp.ResErajolBikeOrderDriver{Error: err.Error()}
 		c.JSON(http.StatusBadRequest, res)
 		return
-	}
-
-	reqOrderDriver := dto.ReqErajolBikeOrderDriver{
-		CustomerID: req.CustomerID,
-		DriverID:   req.DriverID,
-		Price:      req.Price,
 	}
 
 	resOrderDriver, err := e.usecaseErajolBike.OrderDriver(c, reqOrderDriver)
@@ -50,11 +44,7 @@ func (e *ErajolBike) OrderDriver(c *gin.Context) {
 		return
 	}
 
-	res := goouthttp.ResErajolBikeOrderDriver{
-		Data: goouthttp.ResDataErajolBikeOrderDriver{
-			OrderID: resOrderDriver.OrderID,
-		},
-	}
+	res := resOrderDriver.ToResHTTP()
 
 	c.JSON(http.StatusOK, res)
 }
