@@ -13,6 +13,8 @@ import (
 	"github.com/Hidayathamir/goout/internal/repo/cache"
 	"github.com/Hidayathamir/goout/internal/repo/db"
 	"github.com/Hidayathamir/goout/internal/repo/db/migration/migrate"
+	transportgrpc "github.com/Hidayathamir/goout/internal/transport/grpc"
+	transporthttp "github.com/Hidayathamir/goout/internal/transport/http"
 	"github.com/Hidayathamir/goout/internal/usecase"
 	"github.com/Hidayathamir/goout/internal/usecasemw/loggermw"
 	"github.com/Hidayathamir/goout/pkg/trace"
@@ -58,12 +60,19 @@ func Run() { //nolint:funlen
 	usecaseErajolBike = usecase.InitUsecaseErajolBike(cfg, pg, redis, gocheckgrpcDigitalWalletClient)
 	usecaseErajolBike = loggermw.NewErajolBike(cfg, usecaseErajolBike)
 
+	transportgrpcErajolBike := transportgrpc.NewErajolBike(cfg, usecaseErajolBike)
+
+	transporthttpErajolBike := transporthttp.NewErajolBike(cfg, usecaseErajolBike)
+
 	logrus.Info("initializing grpc server in a goroutine so that it won't block the graceful shutdown handling below")
 	var grpcServer *grpc.Server
 	go func() {
 		grpcServer = grpc.NewServer()
 
-		registerGRPCServer(cfg, grpcServer, usecaseErajolBike)
+		registerGRPCServer(
+			grpcServer,
+			transportgrpcErajolBike,
+		)
 
 		addr := net.JoinHostPort(cfg.GetGRPCHost(), cfg.GetGRPCPort())
 		lis, err := net.Listen("tcp", addr)
@@ -79,7 +88,10 @@ func Run() { //nolint:funlen
 	go func() {
 		ginEngine := gin.New()
 
-		registerHTTPRouter(cfg, ginEngine, usecaseErajolBike)
+		registerHTTPRouter(
+			ginEngine,
+			transporthttpErajolBike,
+		)
 
 		addr := net.JoinHostPort(cfg.GetHTTPHost(), cfg.GetHTTPPort())
 		httpServer = &http.Server{ //nolint:gosec
