@@ -15,7 +15,7 @@ import (
 	"github.com/Hidayathamir/goout/pkg/goouterror"
 	"github.com/Hidayathamir/goout/pkg/m"
 	"github.com/Hidayathamir/goout/pkg/trace"
-	protobufgocheck "github.com/Hidayathamir/protobuf/gocheck"
+	pbgocheck "github.com/Hidayathamir/protobuf/gocheck"
 	"github.com/Hidayathamir/txmanager"
 	"github.com/go-playground/validator/v10"
 	"google.golang.org/grpc/metadata"
@@ -77,7 +77,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 
 	ctx = metadata.NewOutgoingContext(ctx, md)
 
-	reqTransfer := &protobufgocheck.ReqDigitalWalletTransfer{
+	reqTransfer := &pbgocheck.ReqDigitalWalletTransfer{
 		RecipientId: uint64(req.DriverID),
 		Amount:      int64(req.Price),
 	}

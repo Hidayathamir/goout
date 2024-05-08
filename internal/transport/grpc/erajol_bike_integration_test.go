@@ -6,8 +6,8 @@ import (
 
 	"github.com/Hidayathamir/goout/internal/extapi/mockextapi"
 	"github.com/Hidayathamir/goout/internal/usecase/injection"
-	protobufgocheck "github.com/Hidayathamir/protobuf/gocheck"
-	protobufgoout "github.com/Hidayathamir/protobuf/goout"
+	pbgocheck "github.com/Hidayathamir/protobuf/gocheck"
+	pbgoout "github.com/Hidayathamir/protobuf/goout"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
@@ -27,18 +27,18 @@ func TestIntegrationErajolBikeOrderDriver(t *testing.T) {
 
 		tEraojolBike := NewErajolBike(cfg, usecaseErajolBike)
 
-		req := &protobufgoout.ReqErajolBikeOrderDriver{
+		req := &pbgoout.ReqErajolBikeOrderDriver{
 			CustomerId: 1,
 			DriverId:   2,
 			Price:      10000,
 		}
 
 		mockExtapiGocheck.EXPECT().
-			Transfer(gomock.Any(), &protobufgocheck.ReqDigitalWalletTransfer{
+			Transfer(gomock.Any(), &pbgocheck.ReqDigitalWalletTransfer{
 				RecipientId: req.GetDriverId(),
 				Amount:      req.GetPrice(),
 			}).
-			Return(&protobufgocheck.ResDigitalWalletTransfer{}, nil)
+			Return(&pbgocheck.ResDigitalWalletTransfer{}, nil)
 
 		res, err := tEraojolBike.OrderDriver(context.Background(), req)
 
@@ -56,14 +56,14 @@ func TestIntegrationErajolBikeOrderDriver(t *testing.T) {
 
 		tEraojolBike := NewErajolBike(cfg, usecaseErajolBike)
 
-		req := &protobufgoout.ReqErajolBikeOrderDriver{
+		req := &pbgoout.ReqErajolBikeOrderDriver{
 			CustomerId: 1,
 			DriverId:   2,
 			Price:      10000,
 		}
 
 		mockExtapiGocheck.EXPECT().
-			Transfer(gomock.Any(), &protobufgocheck.ReqDigitalWalletTransfer{
+			Transfer(gomock.Any(), &pbgocheck.ReqDigitalWalletTransfer{
 				RecipientId: req.GetDriverId(),
 				Amount:      req.GetPrice(),
 			}).

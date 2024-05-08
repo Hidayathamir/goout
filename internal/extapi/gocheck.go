@@ -3,7 +3,7 @@ package extapi
 import (
 	"context"
 
-	protobufgocheck "github.com/Hidayathamir/protobuf/gocheck"
+	pbgocheck "github.com/Hidayathamir/protobuf/gocheck"
 	"google.golang.org/grpc"
 )
 
@@ -11,7 +11,7 @@ import (
 
 // IGocheck defines the interface for interacting with the Gocheck external API.
 type IGocheck interface {
-	Transfer(ctx context.Context, in *protobufgocheck.ReqDigitalWalletTransfer, opts ...grpc.CallOption) (*protobufgocheck.ResDigitalWalletTransfer, error)
+	Transfer(ctx context.Context, in *pbgocheck.ReqDigitalWalletTransfer, opts ...grpc.CallOption) (*pbgocheck.ResDigitalWalletTransfer, error)
 }
 
-var _ IGocheck = protobufgocheck.NewDigitalWalletClient(nil)
+var _ IGocheck = pbgocheck.NewDigitalWalletClient(nil)

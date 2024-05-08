@@ -13,7 +13,7 @@ import (
 	context "context"
 	reflect "reflect"
 
-	protobufgocheck "github.com/Hidayathamir/protobuf/gocheck"
+	pbgocheck "github.com/Hidayathamir/protobuf/gocheck"
 	gomock "go.uber.org/mock/gomock"
 	grpc "google.golang.org/grpc"
 )
@@ -42,14 +42,14 @@ func (m *MockIGocheck) EXPECT() *MockIGocheckMockRecorder {
 }
 
 // Transfer mocks base method.
-func (m *MockIGocheck) Transfer(ctx context.Context, in *protobufgocheck.ReqDigitalWalletTransfer, opts ...grpc.CallOption) (*protobufgocheck.ResDigitalWalletTransfer, error) {
+func (m *MockIGocheck) Transfer(ctx context.Context, in *pbgocheck.ReqDigitalWalletTransfer, opts ...grpc.CallOption) (*pbgocheck.ResDigitalWalletTransfer, error) {
 	m.ctrl.T.Helper()
 	varargs := []any{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
 	ret := m.ctrl.Call(m, "Transfer", varargs...)
-	ret0, _ := ret[0].(*protobufgocheck.ResDigitalWalletTransfer)
+	ret0, _ := ret[0].(*pbgocheck.ResDigitalWalletTransfer)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
