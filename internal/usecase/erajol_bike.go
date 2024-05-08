@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Hidayathamir/gocheck/pkg/gocheckgrpcmiddleware"
+	"github.com/Hidayathamir/gocheck/pkg/gocheckgrpc"
 	"github.com/Hidayathamir/goout/internal/config"
 	"github.com/Hidayathamir/goout/internal/dto"
 	"github.com/Hidayathamir/goout/internal/extapi"
@@ -15,7 +15,7 @@ import (
 	"github.com/Hidayathamir/goout/pkg/goouterror"
 	"github.com/Hidayathamir/goout/pkg/m"
 	"github.com/Hidayathamir/goout/pkg/trace"
-	gocheckgrpc "github.com/Hidayathamir/protobuf/gocheck"
+	protobufgocheck "github.com/Hidayathamir/protobuf/gocheck"
 	"github.com/Hidayathamir/txmanager"
 	"github.com/go-playground/validator/v10"
 	"google.golang.org/grpc/metadata"
@@ -64,7 +64,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 
 	// let say we want transfer money from customer to driver
 
-	auth := gocheckgrpcmiddleware.Authorization{UserID: req.CustomerID}
+	auth := gocheckgrpc.Authorization{UserID: req.CustomerID}
 	jsonByte, err := json.Marshal(auth)
 	if err != nil {
 		return dto.ResErajolBikeOrderDriver{}, trace.Wrap(err)
@@ -77,7 +77,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 
 	ctx = metadata.NewOutgoingContext(ctx, md)
 
-	reqTransfer := &gocheckgrpc.ReqDigitalWalletTransfer{
+	reqTransfer := &protobufgocheck.ReqDigitalWalletTransfer{
 		RecipientId: uint64(req.DriverID),
 		Amount:      int64(req.Price),
 	}

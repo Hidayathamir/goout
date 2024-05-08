@@ -7,7 +7,7 @@ import (
 
 	"github.com/Hidayathamir/gocheck/pkg/m"
 	"github.com/Hidayathamir/goout/pkg/trace"
-	gooutgrpc "github.com/Hidayathamir/protobuf/goout"
+	protobufgoout "github.com/Hidayathamir/protobuf/goout"
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
@@ -25,7 +25,7 @@ func main() {
 	}()
 
 	// new erajol bike client grpc
-	client := gooutgrpc.NewErajolBikeClient(conn)
+	client := protobufgoout.NewErajolBikeClient(conn)
 
 	// prepare request
 	ctx := context.Background()
@@ -33,7 +33,7 @@ func main() {
 	traceID := uuid.NewString()
 	ctx = metadata.NewOutgoingContext(ctx, metadata.Pairs(m.TraceID, traceID))
 
-	req := &gooutgrpc.ReqErajolBikeOrderDriver{
+	req := &protobufgoout.ReqErajolBikeOrderDriver{
 		CustomerId: 1,
 		DriverId:   2,
 		Price:      10000,

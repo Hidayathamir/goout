@@ -7,18 +7,18 @@ import (
 	"github.com/Hidayathamir/goout/internal/dto"
 	"github.com/Hidayathamir/goout/internal/usecase"
 	"github.com/Hidayathamir/goout/pkg/trace"
-	gooutgrpc "github.com/Hidayathamir/protobuf/goout"
+	protobufgoout "github.com/Hidayathamir/protobuf/goout"
 )
 
 // ErajolBike represents the gRPC server for the ErajolBike service.
 type ErajolBike struct {
-	gooutgrpc.UnimplementedErajolBikeServer
+	protobufgoout.UnimplementedErajolBikeServer
 
 	cfg               *config.Config
 	usecaseErajolBike usecase.IErajolBike
 }
 
-var _ gooutgrpc.ErajolBikeServer = &ErajolBike{}
+var _ protobufgoout.ErajolBikeServer = &ErajolBike{}
 
 // NewErajolBike creates a new instance of ErajolBike gRPC server.
 func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *ErajolBike {
@@ -29,7 +29,7 @@ func NewErajolBike(cfg *config.Config, usecaseErajolBike usecase.IErajolBike) *E
 }
 
 // OrderDriver implements gooutgrpc.ErajolBikeServer.
-func (e *ErajolBike) OrderDriver(ctx context.Context, req *gooutgrpc.ReqErajolBikeOrderDriver) (*gooutgrpc.ResErajolBikeOrderDriver, error) {
+func (e *ErajolBike) OrderDriver(ctx context.Context, req *protobufgoout.ReqErajolBikeOrderDriver) (*protobufgoout.ResErajolBikeOrderDriver, error) {
 	reqOrderDriver := dto.ReqErajolBikeOrderDriver{}
 	err := reqOrderDriver.LoadFromReqGRPC(ctx, req)
 	if err != nil {

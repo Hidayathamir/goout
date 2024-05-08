@@ -5,7 +5,7 @@ import (
 
 	"github.com/Hidayathamir/goout/pkg/goouthttp"
 	"github.com/Hidayathamir/goout/pkg/trace"
-	gooutgrpc "github.com/Hidayathamir/protobuf/goout"
+	protobufgoout "github.com/Hidayathamir/protobuf/goout"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,7 +17,7 @@ type ReqErajolBikeOrderDriver struct {
 }
 
 // LoadFromReqGRPC laods data from request grpc.
-func (r *ReqErajolBikeOrderDriver) LoadFromReqGRPC(_ context.Context, req *gooutgrpc.ReqErajolBikeOrderDriver) error {
+func (r *ReqErajolBikeOrderDriver) LoadFromReqGRPC(_ context.Context, req *protobufgoout.ReqErajolBikeOrderDriver) error {
 	r.CustomerID = uint(req.GetCustomerId())
 	r.DriverID = uint(req.GetDriverId())
 	r.Price = int(req.GetPrice())
@@ -45,8 +45,8 @@ type ResErajolBikeOrderDriver struct {
 }
 
 // ToResGRPC converts response to gRPC format.
-func (r *ResErajolBikeOrderDriver) ToResGRPC() *gooutgrpc.ResErajolBikeOrderDriver {
-	return &gooutgrpc.ResErajolBikeOrderDriver{
+func (r *ResErajolBikeOrderDriver) ToResGRPC() *protobufgoout.ResErajolBikeOrderDriver {
+	return &protobufgoout.ResErajolBikeOrderDriver{
 		OrderId: uint64(r.OrderID),
 	}
 }

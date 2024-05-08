@@ -19,7 +19,7 @@ import (
 	"github.com/Hidayathamir/goout/internal/transport/http/httpmiddleware"
 	"github.com/Hidayathamir/goout/internal/usecase/injection"
 	"github.com/Hidayathamir/goout/pkg/trace"
-	gocheckgrpc "github.com/Hidayathamir/protobuf/gocheck"
+	protobufgocheck "github.com/Hidayathamir/protobuf/gocheck"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
@@ -55,7 +55,7 @@ func Run() { //nolint:funlen
 		warnIfErr(err)
 	}()
 
-	gocheckgrpcDigitalWalletClient := gocheckgrpc.NewDigitalWalletClient(gocheckGRPCClientConn)
+	gocheckgrpcDigitalWalletClient := protobufgocheck.NewDigitalWalletClient(gocheckGRPCClientConn)
 
 	usecaseErajolBike := injection.InitUsecaseErajolBike(cfg, pg, redis, gocheckgrpcDigitalWalletClient)
 	transportgrpcErajolBike := transportgrpc.NewErajolBike(cfg, usecaseErajolBike)
