@@ -24,10 +24,8 @@ func main() {
 		warnIfErr(err)
 	}()
 
-	// new erajol bike client grpc
 	client := pbgoout.NewErajolBikeClient(conn)
 
-	// prepare request
 	ctx := context.Background()
 
 	traceID := uuid.NewString()
@@ -39,7 +37,6 @@ func main() {
 		Price:      10000,
 	}
 
-	// hit api erajol bike transfer via grpc
 	res, err := client.OrderDriver(ctx, req)
 	fatalIfErr(err)
 
