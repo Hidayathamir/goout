@@ -7,7 +7,7 @@ import (
 	"github.com/Hidayathamir/goout/internal/dto"
 	"github.com/Hidayathamir/goout/internal/usecase"
 	"github.com/Hidayathamir/goout/pkg/ctxutil"
-	"github.com/Hidayathamir/goout/pkg/trace"
+	"github.com/Hidayathamir/goout/pkg/runtime"
 	"github.com/sirupsen/logrus"
 )
 
@@ -37,7 +37,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 	}
 
 	logrus.WithFields(logrus.Fields{
-		"funcName": trace.FuncName(),
+		"funcName": runtime.FuncName(),
 		"traceid":  ctxutil.GetTraceIDFromCtx(ctx),
 		"in": logrus.Fields{
 			"req": req,

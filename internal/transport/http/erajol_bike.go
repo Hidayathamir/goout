@@ -6,8 +6,8 @@ import (
 	"github.com/Hidayathamir/goout/internal/config"
 	"github.com/Hidayathamir/goout/internal/dto"
 	"github.com/Hidayathamir/goout/internal/usecase"
+	"github.com/Hidayathamir/goout/pkg/errutil"
 	"github.com/Hidayathamir/goout/pkg/goouthttp"
-	"github.com/Hidayathamir/goout/pkg/trace"
 	"github.com/gin-gonic/gin"
 )
 
@@ -30,7 +30,7 @@ func (e *ErajolBike) OrderDriver(c *gin.Context) {
 	reqOrderDriver := dto.ReqErajolBikeOrderDriver{}
 	err := reqOrderDriver.LoadFromReqHTTP(c)
 	if err != nil {
-		err := trace.Wrap(err)
+		err := errutil.Wrap(err)
 		res := goouthttp.ResErajolBikeOrderDriver{Error: err.Error()}
 		c.JSON(http.StatusBadRequest, res)
 		return
@@ -38,7 +38,7 @@ func (e *ErajolBike) OrderDriver(c *gin.Context) {
 
 	resOrderDriver, err := e.usecaseErajolBike.OrderDriver(c, reqOrderDriver)
 	if err != nil {
-		err := trace.Wrap(err)
+		err := errutil.Wrap(err)
 		res := goouthttp.ResErajolBikeOrderDriver{Error: err.Error()}
 		c.JSON(http.StatusBadRequest, res)
 		return

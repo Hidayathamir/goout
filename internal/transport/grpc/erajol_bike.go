@@ -6,7 +6,7 @@ import (
 	"github.com/Hidayathamir/goout/internal/config"
 	"github.com/Hidayathamir/goout/internal/dto"
 	"github.com/Hidayathamir/goout/internal/usecase"
-	"github.com/Hidayathamir/goout/pkg/trace"
+	"github.com/Hidayathamir/goout/pkg/errutil"
 	pbgoout "github.com/Hidayathamir/protobuf/goout"
 )
 
@@ -33,12 +33,12 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req *pbgoout.ReqErajolBike
 	reqOrderDriver := dto.ReqErajolBikeOrderDriver{}
 	err := reqOrderDriver.LoadFromReqGRPC(ctx, req)
 	if err != nil {
-		return nil, trace.Wrap(err)
+		return nil, errutil.Wrap(err)
 	}
 
 	resOrderDriver, err := e.usecaseErajolBike.OrderDriver(ctx, reqOrderDriver)
 	if err != nil {
-		return nil, trace.Wrap(err)
+		return nil, errutil.Wrap(err)
 	}
 
 	res := resOrderDriver.ToResGRPC()

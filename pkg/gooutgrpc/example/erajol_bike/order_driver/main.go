@@ -6,7 +6,7 @@ import (
 	"net"
 
 	"github.com/Hidayathamir/gocheck/pkg/m"
-	"github.com/Hidayathamir/goout/pkg/trace"
+	"github.com/Hidayathamir/goout/pkg/errutil"
 	pbgoout "github.com/Hidayathamir/protobuf/goout"
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
@@ -45,12 +45,12 @@ func main() {
 
 func fatalIfErr(err error) {
 	if err != nil {
-		logrus.Fatal(trace.Wrap(err, trace.WithSkip(1)))
+		logrus.Fatal(errutil.Wrap(err, errutil.WithSkip(1)))
 	}
 }
 
 func warnIfErr(err error) {
 	if err != nil {
-		logrus.Warn(trace.Wrap(err, trace.WithSkip(1)))
+		logrus.Warn(errutil.Wrap(err, errutil.WithSkip(1)))
 	}
 }

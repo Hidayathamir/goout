@@ -12,9 +12,9 @@ import (
 	"github.com/Hidayathamir/goout/internal/extapi"
 	"github.com/Hidayathamir/goout/internal/repo"
 	"github.com/Hidayathamir/goout/pkg/ctxutil"
+	"github.com/Hidayathamir/goout/pkg/errutil"
 	"github.com/Hidayathamir/goout/pkg/goouterror"
 	"github.com/Hidayathamir/goout/pkg/m"
-	"github.com/Hidayathamir/goout/pkg/trace"
 	pbgocheck "github.com/Hidayathamir/protobuf/gocheck"
 	"github.com/Hidayathamir/txmanager"
 	"github.com/go-playground/validator/v10"
@@ -55,7 +55,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 	err := e.validateReqOrderDriver(ctx, req)
 	if err != nil {
 		err := fmt.Errorf("%w: %w", goouterror.ErrInvalidRequest, err)
-		return dto.ResErajolBikeOrderDriver{}, trace.Wrap(err)
+		return dto.ResErajolBikeOrderDriver{}, errutil.Wrap(err)
 	}
 
 	//
@@ -67,7 +67,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 	auth := gocheckgrpc.Authorization{UserID: req.CustomerID}
 	jsonByte, err := json.Marshal(auth)
 	if err != nil {
-		return dto.ResErajolBikeOrderDriver{}, trace.Wrap(err)
+		return dto.ResErajolBikeOrderDriver{}, errutil.Wrap(err)
 	}
 
 	md := metadata.Pairs(
@@ -84,7 +84,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 
 	_, err = e.extapiGocheck.Transfer(ctx, reqTransfer)
 	if err != nil {
-		return dto.ResErajolBikeOrderDriver{}, trace.Wrap(err)
+		return dto.ResErajolBikeOrderDriver{}, errutil.Wrap(err)
 	}
 
 	//
@@ -99,7 +99,7 @@ func (e *ErajolBike) OrderDriver(ctx context.Context, req dto.ReqErajolBikeOrder
 func (e *ErajolBike) validateReqOrderDriver(_ context.Context, req dto.ReqErajolBikeOrderDriver) error {
 	err := e.validator.Struct(req)
 	if err != nil {
-		return trace.Wrap(err)
+		return errutil.Wrap(err)
 	}
 	return nil
 }

@@ -3,8 +3,8 @@ package dto
 import (
 	"context"
 
+	"github.com/Hidayathamir/goout/pkg/errutil"
 	"github.com/Hidayathamir/goout/pkg/goouthttp"
-	"github.com/Hidayathamir/goout/pkg/trace"
 	pbgoout "github.com/Hidayathamir/protobuf/goout"
 	"github.com/gin-gonic/gin"
 )
@@ -29,7 +29,7 @@ func (r *ReqErajolBikeOrderDriver) LoadFromReqHTTP(c *gin.Context) error {
 	req := goouthttp.ReqErajolBikeOrderDriver{}
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
-		return trace.Wrap(err)
+		return errutil.Wrap(err)
 	}
 
 	r.CustomerID = req.CustomerID

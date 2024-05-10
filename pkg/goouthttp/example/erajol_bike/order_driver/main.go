@@ -9,9 +9,9 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/Hidayathamir/goout/pkg/errutil"
 	"github.com/Hidayathamir/goout/pkg/goouthttp"
 	"github.com/Hidayathamir/goout/pkg/h"
-	"github.com/Hidayathamir/goout/pkg/trace"
 	"github.com/sirupsen/logrus"
 )
 
@@ -50,7 +50,7 @@ func main() {
 	isStatusCode2xx := string(httpRes.Status[0]) == "2"
 	if !isStatusCode2xx || resBody.Error != "" {
 		err := errors.New(resBody.Error)
-		logrus.Fatal(trace.Wrap(err))
+		logrus.Fatal(errutil.Wrap(err))
 	}
 
 	logrus.Info("order id = ", resBody.Data.OrderID)
@@ -58,12 +58,12 @@ func main() {
 
 func fatalIfErr(err error) {
 	if err != nil {
-		logrus.Panic(trace.Wrap(err, trace.WithSkip(1)))
+		logrus.Panic(errutil.Wrap(err, errutil.WithSkip(1)))
 	}
 }
 
 func warnIfErr(err error) {
 	if err != nil {
-		logrus.Warn(trace.Wrap(err, trace.WithSkip(1)))
+		logrus.Warn(errutil.Wrap(err, errutil.WithSkip(1)))
 	}
 }
